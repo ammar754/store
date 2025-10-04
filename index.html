@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nebula Hardcore Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #12151c url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat fixed;
+      min-height: 100vh;
+    }
+    .glass {
+      background: rgba(24,27,41,0.86);
+      box-shadow: 0 8px 48px #111a,0 1.5px 6px #06eaff77;
+      backdrop-filter: blur(7px);
+      border-radius: 22px;
+      padding: 34px 36px 30px 36px;
+      margin: 38px auto 0;
+      max-width: 1060px;
+      position: relative;
+      z-index: 2;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 2px solid #26c6da44;
+      padding-bottom: 12px;
+      margin-bottom: 26px;
+    }
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      box-shadow: 0 2px 14px #06eaff99;
+      background: #fff;
+    }
+    .logo-text {
+      font-family: 'Minecraft', 'Russo One', Arial, sans-serif;
+      font-size: 2.5em;
+      color: #20f1e5;
+      text-shadow: 0 2px 15px #000, 0 0 2px #0ff;
+      margin-right: 25px;
+    }
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 18px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.15em;
+      padding: 7px 18px;
+      border-radius: 9px;
+      transition: background 0.18s, color 0.18s;
+    }
+    nav a:hover {
+      background: #ffd700;
+      color: #0a122a;
+    }
+    .banner {
+      background: linear-gradient(120deg,#20f1e5cc 0,#fff0 70%,#ffd700cc 100%);
+      border-radius: 18px;
+      margin: 0 auto 38px auto;
+      padding: 36px 12px 32px 12px;
+      box-shadow: 0 4px 20px #06eaff33;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('') center/cover no-repeat;
+      opacity: 0.12;
+      z-index: 0;
+    }
+    .hero-title {
+      font-family: 'Minecraft', 'Russo One', Arial, sans-serif;
+      font-size: 2.4em;
+      color: #ffd700;
+      letter-spacing: 2px;
+      text-shadow: 0 3px 16px #000c;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-desc {
+      color: #fff;
+      font-size: 1.13em;
+      font-weight: 600;
+      margin-bottom: 26px;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+    .ip-box {
+      display: inline-block;
+      background: #191e31cf;
+      color: #06eaff;
+      border: 2.2px solid #06eaff;
+      border-radius: 18px;
+      font-family: 'Minecraft', 'monospace';
+      font-size: 1.12em;
+      padding: 10px 32px;
+      box-shadow: 0 1px 10px #06eaff33;
+      user-select: all;
+      margin-bottom: 12px;
+      margin-top: 4px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .ip-box:active, .ip-box.copied {
+      background: #ffd700;
+      color: #0a122d;
+      border-color: #ffd700;
+    }
+    .store-btn {
+      background: linear-gradient(90deg, #ffd700 0%, #06eaff 100%);
+      color: #181e2b;
+      padding: 17px 48px;
+      border-radius: 11px;
+      border: none;
+      font-size: 1.18em;
+      font-family: 'Minecraft', 'Montserrat', Arial, sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 24px #06eaff39;
+      margin-top: 14px;
+      margin-bottom: 0;
+      transition: background 0.17s, color 0.18s, transform 0.13s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .store-btn:hover {
+      background: linear-gradient(90deg, #06eaff 0%, #ffd700 100%);
+      color: #181e2b;
+      transform: scale(1.04);
+    }
+    .produk-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      justify-content: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .produk-item {
+      background: rgba(28,33,58,0.92);
+      border: 2.5px solid #06eaff;
+      border-radius: 16px;
+      padding: 24px 16px 20px 16px;
+      width: 215px;
+      box-shadow: 0 2px 18px #06eaff19;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.13s, box-shadow 0.13s, border 0.16s;
+      position: relative;
+      overflow: hidden;
+    }
+    .produk-item:hover {
+      transform: translateY(-7px) scale(1.04);
+      border: 2.5px solid #ffd700;
+      box-shadow: 0 8px 40px #ffd7003c,0 0 0 4px #26c6da3d;
+      z-index: 2;
+    }
+    .produk-img {
+      width: 68px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 1px 10px #ffd70044);
+      border-radius: 9px;
+      background: #fff3;
+    }
+    .produk-title {
+      font-size: 1.13em;
+      color: #ffd700;
+      font-family: 'Minecraft', 'Russo One', Arial, sans-serif;
+      margin-bottom: 9px;
+      letter-spacing: .5px;
+      text-shadow: 0 1.5px 3px #0007;
+    }
+    .produk-desc {
+      color: #c9c9c9;
+      font-size: 1em;
+      margin-bottom: 14px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-align: center;
+    }
+    .produk-harga {
+      background: #ffd700;
+      color: #171e2c;
+      font-weight: bold;
+      font-family: 'Montserrat', Arial, sans-serif;
+      border-radius: 7px;
+      padding: 5px 11px 5px 13px;
+      font-size: 1.05em;
+      margin-bottom: 6px;
+      box-shadow: 0 1px 6px #ffd70077;
+    }
+    .produk-beli {
+      background: linear-gradient(90deg, #06eaff 0%, #ffd700 100%);
+      color: #181e2b;
+      font-family: 'Minecraft', 'Montserrat', Arial, sans-serif;
+      font-weight: bold;
+      padding: 9px 18px;
+      border: none;
+      border-radius: 7px;
+      font-size: 1.07em;
+      box-shadow: 0 2px 10px #06eaff33;
+      margin-top: 7px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, transform 0.12s;
+    }
+    .produk-beli:hover {
+      background: linear-gradient(90deg, #ffd700 0%, #06eaff 100%);
+      color: #181e2b;
+      transform: scale(1.06);
+    }
+    .footer {
+      text-align: center;
+      color: #b2b2b2;
+      font-size: 1em;
+      margin: 50px 0 16px 0;
+      text-shadow: 0 1px 6px #000a;
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 900px) {
+      .glass { padding: 18px 2vw;}
+      .produk-list { flex-direction: column; align-items: center; gap: 14px;}
+      .produk-item { width: 90vw; max-width: 350px;}
+      header { flex-direction: column; gap:8px; align-items: flex-start;}
+      nav { margin-left: 0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="glass">
+    <header>
+      <!-- Ganti src logo dengan logo server kamu -->
+      <img class="logo-img" src="https://i.imghippo.com/files/bMZ6172X.png" alt="logo">
+      <span class="logo-text">NebulaHC</span>
+      <nav>
+        <a href="#">Home</a>
+        <a href="https://nebulahc.my.id" target="_blank">Store</a>
+        <a href="#">Cara Beli</a>
+        <a href="#">Kontak</a>
+      </nav>
+    </header>
+    <div class="banner">
+      <div class="hero-title">Nebula Hardcore Store</div>
+      <div class="hero-desc">
+        Tempat donasi & pembelian <b>rank</b>, <b>key</b>, dan <b>item eksklusif</b> untuk server <span style="color:#06eaff">Nebula Hardcore</span>.<br>
+        <span style="color:#ffd700">Dukung server agar terus berkembang!</span>
+      </div>
+      <div class="ip-box" id="ipbox" onclick="copyIP()">play.nebulahc.my.id</div>
+      <br>
+      <a href="https://nebulahc.my.id" target="_blank" class="store-btn">Buka Store Sekarang</a>
+    </div>
+    <div class="produk-list">
+      <div class="produk-item">
+        <img class="produk-img" src="https://i.imghippo.com/files/bMZ6172X.png" alt="Crate">
+        <div class="produk-title">Ranks</div>
+        <div class="produk-desc">List Rank Di Nebula Hardcore.</div>
+        <div class="produk-harga"></div>
+        <a href="https://nebulahc.my.id" target="_blank" class="produk-beli">Beli</a>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    &copy; 2025 Nebula Hardcore | Store Minecraft Indonesia | Powered by Ammar
+  </div>
+  <script>
+    function copyIP() {
+      const ip = 'play.nebulahc.my.id';
+      navigator.clipboard.writeText(ip);
+      const ipbox = document.getElementById('ipbox');
+      ipbox.textContent = 'IP Tersalin!';
+      ipbox.classList.add('copied');
+      setTimeout(()=>{
+        ipbox.textContent = ip;
+        ipbox.classList.remove('copied');
+      },1000);
+    }
+  </script>
+</body>
+</html>
