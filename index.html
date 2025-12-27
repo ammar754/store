@@ -1,299 +1,1957 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nebula Hardcore Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: #12151c url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat fixed;
-      min-height: 100vh;
-    }
-    .glass {
-      background: rgba(24,27,41,0.86);
-      box-shadow: 0 8px 48px #111a,0 1.5px 6px #06eaff77;
-      backdrop-filter: blur(7px);
-      border-radius: 22px;
-      padding: 34px 36px 30px 36px;
-      margin: 38px auto 0;
-      max-width: 1060px;
-      position: relative;
-      z-index: 2;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      border-bottom: 2px solid #26c6da44;
-      padding-bottom: 12px;
-      margin-bottom: 26px;
-    }
-    .logo-img {
-      width: 58px;
-      height: 58px;
-      border-radius: 12px;
-      box-shadow: 0 2px 14px #06eaff99;
-      background: #fff;
-    }
-    .logo-text {
-      font-family: 'Minecraft', 'Russo One', Arial, sans-serif;
-      font-size: 2.5em;
-      color: #20f1e5;
-      text-shadow: 0 2px 15px #000, 0 0 2px #0ff;
-      margin-right: 25px;
-    }
-    nav {
-      margin-left: auto;
-      display: flex;
-      gap: 18px;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.15em;
-      padding: 7px 18px;
-      border-radius: 9px;
-      transition: background 0.18s, color 0.18s;
-    }
-    nav a:hover {
-      background: #ffd700;
-      color: #0a122a;
-    }
-    .banner {
-      background: linear-gradient(120deg,#20f1e5cc 0,#fff0 70%,#ffd700cc 100%);
-      border-radius: 18px;
-      margin: 0 auto 38px auto;
-      padding: 36px 12px 32px 12px;
-      box-shadow: 0 4px 20px #06eaff33;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url('') center/cover no-repeat;
-      opacity: 0.12;
-      z-index: 0;
-    }
-    .hero-title {
-      font-family: 'Minecraft', 'Russo One', Arial, sans-serif;
-      font-size: 2.4em;
-      color: #ffd700;
-      letter-spacing: 2px;
-      text-shadow: 0 3px 16px #000c;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-desc {
-      color: #fff;
-      font-size: 1.13em;
-      font-weight: 600;
-      margin-bottom: 26px;
-      line-height: 1.5;
-      position: relative;
-      z-index: 1;
-    }
-    .ip-box {
-      display: inline-block;
-      background: #191e31cf;
-      color: #06eaff;
-      border: 2.2px solid #06eaff;
-      border-radius: 18px;
-      font-family: 'Minecraft', 'monospace';
-      font-size: 1.12em;
-      padding: 10px 32px;
-      box-shadow: 0 1px 10px #06eaff33;
-      user-select: all;
-      margin-bottom: 12px;
-      margin-top: 4px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, border 0.2s;
-      position: relative;
-      z-index: 1;
-    }
-    .ip-box:active, .ip-box.copied {
-      background: #ffd700;
-      color: #0a122d;
-      border-color: #ffd700;
-    }
-    .store-btn {
-      background: linear-gradient(90deg, #ffd700 0%, #06eaff 100%);
-      color: #181e2b;
-      padding: 17px 48px;
-      border-radius: 11px;
-      border: none;
-      font-size: 1.18em;
-      font-family: 'Minecraft', 'Montserrat', Arial, sans-serif;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 24px #06eaff39;
-      margin-top: 14px;
-      margin-bottom: 0;
-      transition: background 0.17s, color 0.18s, transform 0.13s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .store-btn:hover {
-      background: linear-gradient(90deg, #06eaff 0%, #ffd700 100%);
-      color: #181e2b;
-      transform: scale(1.04);
-    }
-    .produk-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 22px;
-      justify-content: center;
-      margin-top: 30px;
-      margin-bottom: 20px;
-    }
-    .produk-item {
-      background: rgba(28,33,58,0.92);
-      border: 2.5px solid #06eaff;
-      border-radius: 16px;
-      padding: 24px 16px 20px 16px;
-      width: 215px;
-      box-shadow: 0 2px 18px #06eaff19;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.13s, box-shadow 0.13s, border 0.16s;
-      position: relative;
-      overflow: hidden;
-    }
-    .produk-item:hover {
-      transform: translateY(-7px) scale(1.04);
-      border: 2.5px solid #ffd700;
-      box-shadow: 0 8px 40px #ffd7003c,0 0 0 4px #26c6da3d;
-      z-index: 2;
-    }
-    .produk-img {
-      width: 68px;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 1px 10px #ffd70044);
-      border-radius: 9px;
-      background: #fff3;
-    }
-    .produk-title {
-      font-size: 1.13em;
-      color: #ffd700;
-      font-family: 'Minecraft', 'Russo One', Arial, sans-serif;
-      margin-bottom: 9px;
-      letter-spacing: .5px;
-      text-shadow: 0 1.5px 3px #0007;
-    }
-    .produk-desc {
-      color: #c9c9c9;
-      font-size: 1em;
-      margin-bottom: 14px;
-      font-family: 'Montserrat', Arial, sans-serif;
-      text-align: center;
-    }
-    .produk-harga {
-      background: #ffd700;
-      color: #171e2c;
-      font-weight: bold;
-      font-family: 'Montserrat', Arial, sans-serif;
-      border-radius: 7px;
-      padding: 5px 11px 5px 13px;
-      font-size: 1.05em;
-      margin-bottom: 6px;
-      box-shadow: 0 1px 6px #ffd70077;
-    }
-    .produk-beli {
-      background: linear-gradient(90deg, #06eaff 0%, #ffd700 100%);
-      color: #181e2b;
-      font-family: 'Minecraft', 'Montserrat', Arial, sans-serif;
-      font-weight: bold;
-      padding: 9px 18px;
-      border: none;
-      border-radius: 7px;
-      font-size: 1.07em;
-      box-shadow: 0 2px 10px #06eaff33;
-      margin-top: 7px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.15s, color 0.15s, transform 0.12s;
-    }
-    .produk-beli:hover {
-      background: linear-gradient(90deg, #ffd700 0%, #06eaff 100%);
-      color: #181e2b;
-      transform: scale(1.06);
-    }
-    .footer {
-      text-align: center;
-      color: #b2b2b2;
-      font-size: 1em;
-      margin: 50px 0 16px 0;
-      text-shadow: 0 1px 6px #000a;
-      position: relative;
-      z-index: 2;
-    }
-    @media (max-width: 900px) {
-      .glass { padding: 18px 2vw;}
-      .produk-list { flex-direction: column; align-items: center; gap: 14px;}
-      .produk-item { width: 90vw; max-width: 350px;}
-      header { flex-direction: column; gap:8px; align-items: flex-start;}
-      nav { margin-left: 0;}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALRIZE HARDCORE | Minecraft Rank Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Condensed:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --surface: rgba(26, 26, 26, 0.8);
+            --surface-solid: #1a1a1a;
+            --surface-light: rgba(34, 34, 34, 0.6);
+            --surface-hover: rgba(42, 42, 42, 0.9);
+            
+            --accent: #ef4444;
+            --accent-hover: #f87171;
+            --accent-glow: rgba(239, 68, 68, 0.3);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            
+            --border: rgba(38, 38, 38, 0.5);
+            --border-light: rgba(63, 63, 70, 0.3);
+            
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 32px;
+            
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 40px var(--accent-glow);
+            
+            --transition-fast: 0.2s ease;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-solid);
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--surface-light);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, .logo, .section-title, .nav-cta, .btn, .rank-price, .buy-btn {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .logo {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(239, 68, 68, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(239, 68, 68, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 1000;
+            padding: 18px 0;
+            transition: all var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 12px 0;
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo::before {
+            content: '⚔';
+            color: var(--accent);
+            font-size: 1.3em;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 26px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 140px 0 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.04) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(10px);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border-light);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 50px;
+            padding-top: 50px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .stat::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 2px;
+            height: 30px;
+            background: var(--accent);
+            border-radius: var(--radius-sm);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Ranks Section */
+        .ranks {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 16px;
+            background: linear-gradient(to right, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: var(--radius-sm);
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 20px auto 0;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .ranks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .rank-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 35px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .rank-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .rank-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--accent);
+            font-size: 1.6rem;
+            transition: var(--transition);
+        }
+
+        .rank-card:hover .rank-icon {
+            transform: scale(1.1);
+        }
+
+        .rank-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .rank-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .rank-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .rank-features li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .rank-features li i {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .rank-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Infuse Section */
+        .infuse {
+            padding: 100px 0;
+            background: var(--secondary-bg);
+            position: relative;
+        }
+
+        .infuse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .infuse-item {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .infuse-item:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .infuse-image {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .infuse-image.frost {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        }
+
+        .infuse-image.heart {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .infuse-image.fire {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+        }
+
+        .infuse-content {
+            padding: 28px;
+        }
+
+        .infuse-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .infuse-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .infuse-meta {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Upcoming Section */
+        .upcoming {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .upcoming-card {
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-md);
+            padding: 50px 35px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .upcoming-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            color: var(--accent);
+            font-size: 2rem;
+        }
+
+        .upcoming-badge {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Buy Button */
+        .buy-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .buy-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 35px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .info-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .info-value {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: var(--surface-solid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .contact-form {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(26, 26, 26, 0.5);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            background: rgba(26, 26, 26, 0.8);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a1a1aa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 12px;
+            padding-right: 48px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-hover);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        /* WhatsApp Quick Buy */
+        .whatsapp-quick {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-bg);
+            padding: 70px 0 35px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 35px;
+            border-top: 1px solid var(--border);
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.4s, visibility 0.4s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 25px;
+                transition: right 0.3s ease;
+                z-index: 1000;
+                padding: 80px 35px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-stats {
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 35px;
+                text-align: center;
+            }
+            
+            .stat::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .ranks-grid,
+            .infuse-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            
+            .contact-form {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 18px;
+            }
+            
+            .rank-card,
+            .info-card {
+                padding: 28px 18px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Floating Button */
+        .floating-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow-md);
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .floating-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .floating-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 1001;
+            transition: width 0.1s;
+        }
+    </style>
 </head>
 <body>
-  <div class="glass">
-    <header>
-      <!-- Ganti src logo dengan logo server kamu -->
-      <img class="logo-img" src="https://i.imghippo.com/files/bMZ6172X.png" alt="logo">
-      <span class="logo-text">NebulaHC</span>
-      <nav>
-        <a href="#">Home</a>
-        <a href="https://nebulahc.my.id" target="_blank">Store</a>
-        <a href="#">Cara Beli</a>
-        <a href="#">Kontak</a>
-      </nav>
-    </header>
-    <div class="banner">
-      <div class="hero-title">Nebula Hardcore Store</div>
-      <div class="hero-desc">
-        Tempat donasi & pembelian <b>rank</b>, <b>key</b>, dan <b>item eksklusif</b> untuk server <span style="color:#06eaff">Nebula Hardcore</span>.<br>
-        <span style="color:#ffd700">Dukung server agar terus berkembang!</span>
-      </div>
-      <div class="ip-box" id="ipbox" onclick="copyIP()">play.nebulahc.my.id</div>
-      <br>
-      <a href="https://nebulahc.my.id" target="_blank" class="store-btn">Buka Store Sekarang</a>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
     </div>
-    <div class="produk-list">
-      <div class="produk-item">
-        <img class="produk-img" src="https://i.imghippo.com/files/bMZ6172X.png" alt="Crate">
-        <div class="produk-title">Ranks</div>
-        <div class="produk-desc">List Rank Di Nebula Hardcore.</div>
-        <div class="produk-harga"></div>
-        <a href="https://nebulahc.my.id" target="_blank" class="produk-beli">Beli</a>
-      </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer">
-    &copy; 2025 Nebula Hardcore | Store Minecraft Indonesia | Powered by Ammar
-  </div>
-  <script>
-    function copyIP() {
-      const ip = 'play.nebulahc.my.id';
-      navigator.clipboard.writeText(ip);
-      const ipbox = document.getElementById('ipbox');
-      ipbox.textContent = 'IP Tersalin!';
-      ipbox.classList.add('copied');
-      setTimeout(()=>{
-        ipbox.textContent = ip;
-        ipbox.classList.remove('copied');
-      },1000);
-    }
-  </script>
+
+    <!-- Background -->
+    <div class="grid-bg"></div>
+    <div id="particles-js"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">ALRIZE HARDCORE</a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#ranks" class="nav-link">Ranks</a></li>
+                    <li><a href="#infuse" class="nav-link">Infuse</a></li>
+                    <li><a href="#upcoming" class="nav-link">Coming Soon</a></li>
+                    <li><a href="#contact" class="nav-link">Purchase</a></li>
+                    <li>
+                        <button class="nav-cta" onclick="scrollToContact()">Buy Now</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Back to Top -->
+    <a href="#home" class="floating-btn" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge fade-up">
+                    <i class="fas fa-fire"></i>
+                    Hardcore Minecraft Server
+                </div>
+                
+                <h1 class="fade-up">
+                    ALRIZE HARDCORE
+                </h1>
+                
+                <p class="hero-subtitle fade-up">
+                    Premium Minecraft hardcore experience with exclusive ranks and powerful items. 
+                    Join our competitive community and dominate the battlefield.
+                </p>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-primary fade-up" onclick="scrollToRanks()">
+                        <i class="fas fa-crown"></i>
+                        View Ranks
+                    </button>
+                    <button class="btn btn-secondary fade-up" onclick="scrollToContact()">
+                        <i class="fas fa-shopping-cart"></i>
+                        Purchase Now
+                    </button>
+                </div>
+                
+                <div class="hero-stats fade-up">
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Active Players</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Server Uptime</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">99%</div>
+                        <div class="stat-label">Player Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ranks Section -->
+    <section id="ranks" class="ranks">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-up">Server Ranks</h2>
+                <p class="section-subtitle fade-up">Unlock exclusive perks and dominate the server with premium ranks</p>
+            </div>
+            
+            <div class="ranks-grid">
+                <!-- Warrior Rank -->
+                <div class="rank-card fade-up">
+                    <div class="rank-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Warrior</h3>
+                    <p>Basic rank with essential perks for starting your journey.</p>
+                    <ul class="rank-features">
+                        <li><i class="fas fa-check"></i> Basic Prefix & Color</li>
+                        <li><i class="fas fa-check"></i> 3 Homes</li>
+                        <li><i class="fas fa-check"></i> Access to /hat</li>
+                        <li><i class="fas fa-check"></i> Fly in Spawn</li>
+                    </ul>
+                    <div class="rank-price">
+                        Rp 15,000
+                        <button class="buy-btn" onclick="quickBuy('Warrior', 15000)">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Pro Rank -->
+                <div class="rank-card fade-up">
+                    <div class="rank-icon">
+                        <i class="fas fa-user-ninja"></i>
+                    </div>
+                    <h3>Pro</h3>
+                    <p>Advanced rank for serious players who want more control.</p>
+                    <ul class="rank-features">
+                        <li><i class="fas fa-check"></i> Pro Prefix & Color</li>
+                        <li><i class="fas fa-check"></i> 5 Homes</li>
+                        <li><i class="fas fa-check"></i> Access to /craft</li>
+                        <li><i class="fas fa-check"></i> Fly Everywhere</li>
+                    </ul>
+                    <div class="rank-price">
+                        Rp 20,000
+                        <button class="buy-btn" onclick="quickBuy('Pro', 20000)">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mythic Rank -->
+                <div class="rank-card fade-up">
+                    <div class="rank-icon">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <h3>Mythic</h3>
+                    <p>Legendary rank with powerful features for competitive players.</p>
+                    <ul class="rank-features">
+                        <li><i class="fas fa-check"></i> Mythic Prefix & Color</li>
+                        <li><i class="fas fa-check"></i> 7 Homes</li>
+                        <li><i class="fas fa-check"></i> Access to /enderchest</li>
+                        <li><i class="fas fa-check"></i> Particle Effects</li>
+                    </ul>
+                    <div class="rank-price">
+                        Rp 25,000
+                        <button class="buy-btn" onclick="quickBuy('Mythic', 25000)">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Sultan Rank -->
+                <div class="rank-card fade-up">
+                    <div class="rank-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Sultan</h3>
+                    <p>Royal rank with exclusive perks for server elites.</p>
+                    <ul class="rank-features">
+                        <li><i class="fas fa-check"></i> Sultan Prefix & Color</li>
+                        <li><i class="fas fa-check"></i> 10 Homes</li>
+                        <li><i class="fas fa-check"></i> Access to /nick</li>
+                        <li><i class="fas fa-check"></i> Custom Join Message</li>
+                    </ul>
+                    <div class="rank-price">
+                        Rp 30,000
+                        <button class="buy-btn" onclick="quickBuy('Sultan', 30000)">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Zulrize Rank -->
+                <div class="rank-card fade-up">
+                    <div class="rank-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Zulrize</h3>
+                    <p>The ultimate rank for hardcore players who want it all.</p>
+                    <ul class="rank-features">
+                        <li><i class="fas fa-check"></i> Zulrize Prefix & Color</li>
+                        <li><i class="fas fa-check"></i> 15 Homes</li>
+                        <li><i class="fas fa-check"></i> Access to /feed, /heal</li>
+                        <li><i class="fas fa-check"></i> Exclusive Particle Pack</li>
+                    </ul>
+                    <div class="rank-price">
+                        Rp 40,000
+                        <button class="buy-btn" onclick="quickBuy('Zulrize', 40000)">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Donatur Rank -->
+                <div class="rank-card fade-up">
+                    <div class="rank-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Donatur</h3>
+                    <p>Special rank for server supporters with VIP treatment.</p>
+                    <ul class="rank-features">
+                        <li><i class="fas fa-check"></i> Donatur Prefix & Color</li>
+                        <li><i class="fas fa-check"></i> 20 Homes</li>
+                        <li><i class="fas fa-check"></i> All Zulrize Features</li>
+                        <li><i class="fas fa-check"></i> Special Support Badge</li>
+                    </ul>
+                    <div class="rank-price">
+                        Rp 65,000
+                        <button class="buy-btn" onclick="quickBuy('Donatur', 65000)">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infuse Section -->
+    <section id="infuse" class="infuse">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-up">Infuse Items</h2>
+                <p class="section-subtitle fade-up">Powerful items to enhance your gameplay and dominate battles</p>
+            </div>
+            
+            <div class="infuse-grid">
+                <!-- Frost Infuse -->
+                <div class="infuse-item fade-up">
+                    <div class="infuse-image frost">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2.5rem;">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                    </div>
+                    <div class="infuse-content">
+                        <h3><i class="fas fa-snowflake"></i> Frost Infuse</h3>
+                        <p>Freeze your enemies in their tracks with this powerful ice enchantment.</p>
+                        <div class="infuse-meta">
+                            <span>Power: ★★★★★</span>
+                            <span>Rp 10,000</span>
+                        </div>
+                        <button class="buy-btn" onclick="quickBuy('Frost Infuse', 10000)" style="width: 100%; margin-top: 16px;">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Heart Infuse -->
+                <div class="infuse-item fade-up">
+                    <div class="infuse-image heart">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2.5rem;">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                    </div>
+                    <div class="infuse-content">
+                        <h3><i class="fas fa-heartbeat"></i> Heart Infuse</h3>
+                        <p>Increase your health pool and regeneration rate for intense battles.</p>
+                        <div class="infuse-meta">
+                            <span>Power: ★★★★★</span>
+                            <span>Rp 15,000</span>
+                        </div>
+                        <button class="buy-btn" onclick="quickBuy('Heart Infuse', 15000)" style="width: 100%; margin-top: 16px;">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Fire Infuse -->
+                <div class="infuse-item fade-up">
+                    <div class="infuse-image fire">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2.5rem;">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                    </div>
+                    <div class="infuse-content">
+                        <h3><i class="fas fa-fire"></i> Fire Infuse</h3>
+                        <p>Set your enemies ablaze with fiery attacks and burning damage.</p>
+                        <div class="infuse-meta">
+                            <span>Power: ★★★★☆</span>
+                            <span>Rp 5,000</span>
+                        </div>
+                        <button class="buy-btn" onclick="quickBuy('Fire Infuse', 5000)" style="width: 100%; margin-top: 16px;">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Section -->
+    <section id="upcoming" class="upcoming">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-up">Coming Soon</h2>
+                <p class="section-subtitle fade-up">Exciting new features coming to Alrize Hardcore</p>
+            </div>
+            
+            <div class="upcoming-card fade-up">
+                <div class="upcoming-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="upcoming-badge">
+                    <i class="fas fa-clock"></i> Under Development
+                </div>
+                <h3 style="margin-bottom: 16px;">Glitch SMP</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                    A brand new survival multiplayer experience with unique game mechanics, 
+                    custom features, and exciting challenges.
+                </p>
+                <div style="background: rgba(239, 68, 68, 0.1); padding: 18px; border-radius: var(--radius-md); margin-top: 20px;">
+                    <h4 style="margin-bottom: 10px; color: var(--accent); font-size: 1rem;">
+                        <i class="fas fa-bell"></i> Coming Features
+                    </h4>
+                    <ul style="list-style: none; color: var(--text-secondary); font-size: 0.9rem;">
+                        <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-check-circle" style="color: var(--accent); font-size: 0.8rem;"></i>
+                            Custom Economy System
+                        </li>
+                        <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-check-circle" style="color: var(--accent); font-size: 0.8rem;"></i>
+                            Unique Quests & Challenges
+                        </li>
+                        <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-check-circle" style="color: var(--accent); font-size: 0.8rem;"></i>
+                            Player Housing System
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-up">Purchase Items</h2>
+                <p class="section-subtitle fade-up">Complete your purchase by providing your details</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-card fade-up">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <h3>WhatsApp Order</h3>
+                        </div>
+                        <p>Direct order via WhatsApp for faster processing.</p>
+                        <span class="info-value">+62 897-8588-670</span>
+                        
+                        <div class="whatsapp-quick">
+                            <a href="https://wa.me/628978588670?text=Halo%20saya%20ingin%20bertanya%20tentang%20produk%20Alrize%20Hardcore" 
+                               class="whatsapp-btn" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                Chat via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card fade-up">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h3>Payment Methods</h3>
+                        </div>
+                        <p>We accept various payment methods for your convenience.</p>
+                        <span class="info-value">Dana, OVO, GoPay, Bank Transfer</span>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="fab fa-discord"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form fade-up" id="contactForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Minecraft Username</label>
+                        <input type="text" id="name" class="form-control" placeholder="Your Minecraft username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="contact">WhatsApp Number</label>
+                        <input type="text" id="contact" class="form-control" placeholder="+62..." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="item-type">Select Item</label>
+                        <select id="item-type" class="form-control" required>
+                            <option value="">Select item to purchase</option>
+                            <option value="warrior">Warrior Rank - Rp 15,000</option>
+                            <option value="pro">Pro Rank - Rp 20,000</option>
+                            <option value="mythic">Mythic Rank - Rp 25,000</option>
+                            <option value="sultan">Sultan Rank - Rp 30,000</option>
+                            <option value="zulrize">Zulrize Rank - Rp 40,000</option>
+                            <option value="donatur">Donatur Rank - Rp 65,000</option>
+                            <option value="frost">Frost Infuse - Rp 10,000</option>
+                            <option value="heart">Heart Infuse - Rp 15,000</option>
+                            <option value="fire">Fire Infuse - Rp 5,000</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="payment">Payment Method</label>
+                        <select id="payment" class="form-control" required>
+                            <option value="">Select payment method</option>
+                            <option value="dana">Dana</option>
+                            <option value="ovo">OVO</option>
+                            <option value="gopay">GoPay</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="message">Additional Notes (Optional)</label>
+                        <textarea id="message" class="form-control" placeholder="Any special requests or notes..." rows="3"></textarea>
+                    </div>
+                    
+                    <button type="button" class="btn-submit" onclick="processOrder()">
+                        <i class="fab fa-whatsapp"></i>
+                        Order via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="logo" style="margin-bottom: 20px;">ALRIZE HARDCORE</a>
+                    <p style="color: var(--text-secondary); max-width: 300px; font-size: 0.9rem;">
+                        Premium Minecraft hardcore server with competitive gameplay, 
+                        exclusive ranks, and powerful items.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Products</h4>
+                    <a href="#ranks">Server Ranks</a>
+                    <a href="#infuse">Infuse Items</a>
+                    <a href="#upcoming">Coming Soon</a>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <a href="#contact">Purchase Guide</a>
+                    <a href="#contact">Payment Methods</a>
+                    <a href="https://wa.me/628978588670" target="_blank">Contact via WhatsApp</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Alrize Hardcore Minecraft Server. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 500);
+        });
+
+        // Particles Background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 70, density: { enable: true, value_area: 800 } },
+                color: { value: "#ef4444" },
+                shape: { type: "circle" },
+                opacity: { value: 0.2, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ef4444",
+                    opacity: 0.1,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Scroll Progress
+            const scrollProgress = document.getElementById('scrollProgress');
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+            
+            // Back to Top Button
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Active Navigation
+        const sections = document.querySelectorAll('section');
+        const navLinkEls = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinkEls.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll Functions
+        function scrollToRanks() {
+            document.getElementById('ranks').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // WhatsApp Phone Number
+        const WHATSAPP_NUMBER = '628978588670';
+
+        // Quick Buy Function
+        function quickBuy(itemName, price) {
+            // Show quick order modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(20px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeUp 0.3s ease;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: var(--surface);
+                    border: 1px solid var(--accent);
+                    border-radius: var(--radius-md);
+                    padding: 40px;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                ">
+                    <div style="
+                        width: 70px;
+                        height: 70px;
+                        background: var(--accent);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 20px;
+                        color: white;
+                        font-size: 1.8rem;
+                    ">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 style="margin-bottom: 12px; font-size: 1.4rem;">Quick Order</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        You're ordering: <strong>${itemName}</strong><br>
+                        Price: <strong>Rp ${price.toLocaleString()}</strong>
+                    </p>
+                    
+                    <div style="margin-bottom: 28px; text-align: left;">
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; margin-bottom: 8px; color: var(--text-primary); font-weight: 500; font-size: 0.9rem;">
+                                Minecraft Username
+                            </label>
+                            <input type="text" id="quickUsername" 
+                                   style="width: 100%; padding: 12px; background: rgba(26, 26, 26, 0.5); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-primary); font-family: 'Poppins', sans-serif;"
+                                   placeholder="Enter your Minecraft username" required>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; margin-bottom: 8px; color: var(--text-primary); font-weight: 500; font-size: 0.9rem;">
+                                Payment Method
+                            </label>
+                            <select id="quickPayment" 
+                                    style="width: 100%; padding: 12px; background: rgba(26, 26, 26, 0.5); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-primary); font-family: 'Poppins', sans-serif;">
+                                <option value="">Select payment method</option>
+                                <option value="Dana">Dana</option>
+                                <option value="OVO">OVO</option>
+                                <option value="GoPay">GoPay</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px;">
+                        <button onclick="completeQuickOrder('${itemName}', ${price})" style="
+                            background: #25D366;
+                            color: white;
+                            border: none;
+                            padding: 14px 28px;
+                            border-radius: var(--radius-md);
+                            font-weight: 600;
+                            cursor: pointer;
+                            flex: 1;
+                            transition: var(--transition);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                        ">
+                            <i class="fab fa-whatsapp"></i>
+                            Order via WhatsApp
+                        </button>
+                        
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            background: transparent;
+                            color: var(--text-secondary);
+                            border: 1px solid var(--border);
+                            padding: 14px 28px;
+                            border-radius: var(--radius-md);
+                            font-weight: 600;
+                            cursor: pointer;
+                            flex: 1;
+                            transition: var(--transition);
+                        ">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Complete Quick Order
+        function completeQuickOrder(itemName, price) {
+            const username = document.getElementById('quickUsername').value;
+            const paymentMethod = document.getElementById('quickPayment').value;
+            
+            if (!username || !paymentMethod) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            
+            // Format WhatsApp message
+            const message = `Halo, saya ingin membeli item dari Alrize Hardcore%0A%0A` +
+                           `🎮 *Item:* ${itemName}%0A` +
+                           `💰 *Harga:* Rp ${price.toLocaleString()}%0A` +
+                           `👤 *Minecraft Username:* ${username}%0A` +
+                           `💳 *Metode Pembayaran:* ${paymentMethod}%0A` +
+                           `⏰ *Waktu Order:* ${new Date().toLocaleString('id-ID')}%0A%0A` +
+                           `Saya sudah siap untuk melanjutkan pembayaran.`;
+            
+            // Create WhatsApp link
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappURL, '_blank');
+            
+            // Remove modal
+            document.querySelector('div[style*="position: fixed; top: 0"]').remove();
+            
+            // Show success notification
+            showNotification(`Order for ${itemName} sent to WhatsApp!`);
+        }
+
+        // Process Form Order
+        function processOrder() {
+            const username = document.getElementById('name').value;
+            const phone = document.getElementById('contact').value;
+            const itemType = document.getElementById('item-type').value;
+            const paymentMethod = document.getElementById('payment').value;
+            const notes = document.getElementById('message').value;
+            
+            if (!username || !phone || !itemType || !paymentMethod) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            
+            // Get item name and price
+            const itemSelect = document.getElementById('item-type');
+            const selectedOption = itemSelect.options[itemSelect.selectedIndex];
+            const itemText = selectedOption.text;
+            const itemName = itemText.split(' - ')[0];
+            const itemPrice = itemText.split(' - ')[1] || 'Rp 0';
+            
+            // Format WhatsApp message
+            const message = `Halo, saya ingin membeli item dari Alrize Hardcore%0A%0A` +
+                           `🎮 *Item:* ${itemName}%0A` +
+                           `💰 *Harga:* ${itemPrice}%0A` +
+                           `👤 *Minecraft Username:* ${username}%0A` +
+                           `📱 *Nomor WhatsApp:* ${phone}%0A` +
+                           `💳 *Metode Pembayaran:* ${paymentMethod}%0A` +
+                           `📝 *Catatan Tambahan:* ${notes || 'Tidak ada'}%0A` +
+                           `⏰ *Waktu Order:* ${new Date().toLocaleString('id-ID')}%0A%0A` +
+                           `Saya sudah siap untuk melanjutkan pembayaran.`;
+            
+            // Create WhatsApp link
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappURL, '_blank');
+            
+            // Show success notification
+            showNotification(`Your order has been sent to WhatsApp!`);
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+        }
+
+        // Notification Function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--accent);
+                color: white;
+                padding: 14px 22px;
+                border-radius: var(--radius-md);
+                font-weight: 600;
+                z-index: 10000;
+                animation: fadeUp 0.3s ease;
+                box-shadow: var(--shadow-lg);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 0.9rem;
+                max-width: 90%;
+            `;
+            
+            notification.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'fadeUp 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
-</html>
+  </html>
